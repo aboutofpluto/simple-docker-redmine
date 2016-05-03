@@ -48,9 +48,9 @@ This configuration runs 5 containers to have a basic redmine working:
 
 6. Configure nginx to match your requirements.
 
-Edit `nginx/redmine.com` and change <mydomain> for your domain (for instance www.redmine.com).
+Edit `nginx/redmine.com` and change `<mydomain>` for your domain (for instance www.redmine.com).
 
-Edit docker-compose.yml and change <path_to_crt_file> and <path_to_key_file> to, respectively, the absolute path to your SSL certificate and the absolute path to your SSL key.
+Edit `docker-compose.yml` and change `<path_to_crt_file>` and `<path_to_key_file>` to, respectively, the absolute path to your SSL certificate and the absolute path to your SSL key.
 
 7. Use docker-compose to run production setup
 
