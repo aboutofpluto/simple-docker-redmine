@@ -1,0 +1,40 @@
+# Docker production config for LWA redmine application
+#
+# Sets up a data volume, a database and the redmine application.
+#
+redmine:
+  build: .
+  links:
+    - db:mysql
+    - smtp:smtp
+  ports:
+    - 3000:3000
+  
+db:
+  image: mysql
+  volumes_from:
+    - redminedbdata
+  environment:
+    - MYSQL_ROOT_PASSWORD=<root_psswd>
+    - MYSQL_DATABASE=redmine
+    - MYSQL_USER=redmine
+    - MYSQL_PASSWORD=<redmine_psswd>
+
+nginx:
+  image: nginx
+  links:
+    - redmine:redmine
+  ports:
+    - 80:80
+    - 443:443
+  volumes:
+    - ./nginx/redmine.conf:/etc/nginx/conf.d/default.conf
+    - <path_to_crt_file>:/etc/nginx/ssl/mydomain.ssl.crt
+    - <path_to_key_file>:/etc/nginx/ssl/mydomain.ssl.key
+
+smtp:
+  image: panubo/postfix
+  ports:
+    - 587:587
+  environment:
+    - MAILNAME=<mydomain>
