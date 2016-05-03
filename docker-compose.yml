@@ -1,14 +1,12 @@
-# Docker production config for LWA redmine application
+# Docker production config for redmine application
 #
-# Sets up a data volume, a database and the redmine application.
+# Sets up a database, an nginx proxy, a smtp service, and the redmine application.
 #
 redmine:
   build: .
   links:
     - db:mysql
     - smtp:smtp
-  ports:
-    - 3000:3000
   
 db:
   image: mysql

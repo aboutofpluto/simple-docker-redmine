@@ -79,8 +79,8 @@ RUN buildDeps='\
 RUN git clone https://github.com/onozaty/redmine-parent-issue-filter.git parent_issue_filter && mv parent_issue_filter /usr/src/redmine/plugins/
 
 # install theme
-RUN git clone https://github.com/Nitrino/flatly_light_redmine.git && mv flatly_light_redmine /usr/src/redmine/public/themes/oop
-COPY redmine/themes/oop/stylesheets/ /usr/src/redmine/public/themes/oop/stylesheets/
+RUN git clone https://github.com/Nitrino/flatly_light_redmine.git && mv flatly_light_redmine /usr/src/redmine/public/themes/flatly
+COPY redmine/themes/flatly/stylesheets/ /usr/src/redmine/public/themes/flatly/stylesheets/
 
 VOLUME /usr/src/redmine/files
 
@@ -88,6 +88,6 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 3000
-# update plugins
-CMD ["bundle", "exec", "rake", "redmine:plugins", "NAME=redmine_people,redmine_contacts", "RAILS_ENV=production"]
+# update plugins if necessary for migrations
+#CMD ["bundle", "exec", "rake", "redmine:plugins", "NAME=<comma_separated_list_of_plugins>", "RAILS_ENV=production"]
 CMD ["rails", "server", "-b", "0.0.0.0"]

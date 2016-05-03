@@ -1,4 +1,14 @@
-Docker production environment for running LWA Redmine.
+Docker production environment for running Redmine.
+
+## About
+
+This configuration runs 5 containers to have a basic redmine working:
+
+- a container with ruby, rails, and redmine using the local Dockerfile and exposed on port 3000.
+- a container with mysql as database
+- a busybox container to permanently store the data from MySQL
+- a container with nginx to serve redmine on https on standard ports (80 and 443)
+- a container with postfix to send notifications
 
 ## Initial Deployment
 
@@ -36,4 +46,15 @@ Docker production environment for running LWA Redmine.
         $ docker stop tmpdb
         $ docker rm tmpdb
 
-6. Use docker-compose to run production setup
+6. Configure nginx to match your requirements.
+
+Edit `nginx/redmine.com` and change <mydomain> for your domain (for instance www.redmine.com).
+
+Edit docker-compose.yml and change <path_to_crt_file> and <path_to_key_file> to, respectively, the absolute path to your SSL certificate and the absolute path to your SSL key.
+
+7. Use docker-compose to run production setup
+
+        $ docker-compose up
+
+8. (Optional) Edit your Dockerfile to add plugins or to edit theme (see comments).
+
